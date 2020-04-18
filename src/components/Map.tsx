@@ -29,7 +29,7 @@ const Map = ():JSX.Element => {
             latitude={32.072048}
             longitude={34.898529}
         >
-            <img src="/logo192.png" width={12} height={12} alt="map pin"/>
+            <img src="/media/location.svg" width={50} height={50} alt="map pin"/>
         </Marker>
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
