@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
-import MapGL, { GeolocateControl, Marker, Popup, ViewportProps } from 'react-map-gl';
+import React, { useState, useEffect } from 'react';
+import MapGL, { Marker, Popup, ViewportProps } from 'react-map-gl';
+import { Coordinates } from './Map/interfaces';
+import getCurrentUserLocation from './Map/GeolocationCoordinates';
 
 const { REACT_APP_MAPBOX_TOKEN: MAPBOX_TOKEN, REACT_APP_MAPBOX_STYLE: MAPBOX_STYLE } = process.env;
-const location = {
-    latitude: 32.072048,
-    longitude: 34.898529,
+
+const userDefaultCoordinates: Coordinates = {
+    latitude: 0,
+    longitude: 0,
 };
+
 const defaultViewport: ViewportProps = {
     width: 0,
     height: 900,
-    latitude: 32.072048,
-    longitude: 34.898529,
+    latitude: 0,
+    longitude: 0,
     altitude: 0,
     zoom: 17,
     maxZoom: 24,
@@ -23,8 +27,20 @@ const defaultViewport: ViewportProps = {
 
 const Map: React.FC = (): JSX.Element => {
     const [viewport, setViewPort] = useState<ViewportProps>(defaultViewport);
+    const [selectedMarker, setSelectedMarker] = useState<boolean>(false);
+    const [userPosition, setUserPosition] = useState<Coordinates>(userDefaultCoordinates);
+    const [markerPosition, setMarkerPosition] = useState<Coordinates>({ longitude: 0, latitude: 0 });
 
-    const [selectedLocation, setSelectedLocation] = useState({});
+    // on component did mount
+    useEffect((): void => {
+        const fetchData = async (): Promise<void> => {
+            const position = await getCurrentUserLocation();
+            const { latitude, longitude } = position.coords;
+            setUserPosition({ latitude, longitude });
+            setViewPort({ ...viewport, latitude, longitude });
+        };
+        fetchData();
+    }, []);
 
     return (
         <div>
@@ -35,23 +51,24 @@ const Map: React.FC = (): JSX.Element => {
                 onViewportChange={(viewport: ViewportProps): void => setViewPort({ ...viewport })}
                 width="100%"
             >
-                <Marker key={1} {...location}>
+                <Marker key={1} latitude={userPosition.latitude} longitude={userPosition.longitude}>
                     <button
                         style={{ border: 'none', background: 'none', cursor: 'pointer' }}
                         onClick={(e): void => {
                             e.preventDefault();
-                            setSelectedLocation(location);
+                            setMarkerPosition({ ...userPosition });
+                            setSelectedMarker(!selectedMarker);
                         }}
                     >
                         <img src="/media/location.svg" width={50} height={50} alt="map pin" />
                     </button>
                 </Marker>
-                {Object.entries(selectedLocation).length !== 0 && (
+                {selectedMarker && (
                     <Popup
-                        latitude={32.072048}
-                        longitude={34.898529}
+                        latitude={markerPosition.latitude}
+                        longitude={markerPosition.longitude}
                         onClose={(): void => {
-                            setSelectedLocation({});
+                            setSelectedMarker(false);
                         }}
                     >
                         <div>
@@ -59,7 +76,6 @@ const Map: React.FC = (): JSX.Element => {
                         </div>
                     </Popup>
                 )}
-                <GeolocateControl positionOptions={{ enableHighAccuracy: true }} trackUserLocation={true} />
             </MapGL>
         </div>
     );
