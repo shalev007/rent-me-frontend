@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import MapGL, {GeolocateControl} from 'react-map-gl';
+import MapGL, {GeolocateControl, Marker} from 'react-map-gl';
 
 const {
     REACT_APP_MAPBOX_TOKEN: MAPBOX_TOKEN,
@@ -24,10 +24,17 @@ const Map = ():JSX.Element => {
         mapStyle={MAPBOX_STYLE}
         onViewportChange={(viewport:any) => setViewPort({...viewport})}
       >
-        {/* <GeolocateControl
+        <Marker
+            key={1}
+            latitude={32.072048}
+            longitude={34.898529}
+        >
+            <img src="/logo192.png" width={12} height={12} alt="map pin"/>
+        </Marker>
+        <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
-        /> */}
+        />
       </MapGL>
     </div>
   )
