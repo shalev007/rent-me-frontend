@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-import MapGL, {GeolocateControl } from 'react-map-gl';
+import MapGL, {GeolocateControl} from 'react-map-gl';
 
-const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
-const MAPBOX_STYLE = process.env.REACT_APP_MAPBOX_STYLE;
+const {
+    REACT_APP_MAPBOX_TOKEN: MAPBOX_TOKEN,
+    REACT_APP_MAPBOX_STYLE: MAPBOX_STYLE
+} = process.env;
 
 const Map = ():JSX.Element => {
 
@@ -15,8 +17,7 @@ const Map = ():JSX.Element => {
   });
   
   return (
-    <div style={{ margin: '0 auto'}}>
-      <h1 style={{textAlign: 'center', fontSize: '25px', fontWeight: 'bolder' }}>GeoLocator: Click To Find Your Location or click <a href="/search">here</a> to search for a location</h1>
+    <div>
       <MapGL
         {...viewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
