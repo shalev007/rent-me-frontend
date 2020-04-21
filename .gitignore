@@ -10,6 +10,7 @@ package-lock.json
 
 # testing
 /coverage
+/src/data
 
 # production
 /build

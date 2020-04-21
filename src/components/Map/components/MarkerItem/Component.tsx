@@ -1,7 +1,8 @@
 import React from 'react';
 
 interface MarkerItemProps {
-    onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    onClick?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    seller?: Record<string, any>;
 }
 
 const MarkerItem: React.FC<MarkerItemProps> = (props: MarkerItemProps): JSX.Element => {
