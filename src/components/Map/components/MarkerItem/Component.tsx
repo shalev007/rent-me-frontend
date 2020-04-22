@@ -1,13 +1,33 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { types } from '../../../../state/Reducers/Map';
+import Transportation from '../../../../interfaces/Map/Transportation';
 
 interface MarkerItemProps {
-    onClick?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    seller?: Record<string, any>;
+    isUser?: boolean;
+    transportation?: Transportation;
 }
 
 const MarkerItem: React.FC<MarkerItemProps> = (props: MarkerItemProps): JSX.Element => {
+    const dispatch = useDispatch();
+
+    const handleClick = (): void => {
+        if (!props.transportation) {
+            return;
+        }
+
+        dispatch({
+            type: types.MARKER_CHOOSEN,
+            payload: props.transportation,
+        });
+        dispatch({
+            type: types.TOGGLE_POPUP,
+            payload: true,
+        });
+    };
+
     return (
-        <button style={{ border: 'none', background: 'none', cursor: 'pointer' }} onClick={props.onClick}>
+        <button style={{ border: 'none', background: 'none', cursor: 'pointer' }} onClick={handleClick}>
             <img src="/media/location.svg" width={50} height={50} alt="map pin" />
         </button>
     );

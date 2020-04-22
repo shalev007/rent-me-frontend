@@ -1,9 +1,19 @@
+import Transportation from '../../interfaces/Map/Transportation';
+
 export interface MapState {
-    name: string;
+    showPopup: boolean;
+    selectedMarker: Transportation;
 }
 
 const mapState: MapState = {
-    name: 'shalev',
+    showPopup: false,
+    selectedMarker: {
+        seller: {},
+        coordinates: {
+            longitude: 0,
+            latitude: 0,
+        },
+    },
 };
 
 export default mapState;
