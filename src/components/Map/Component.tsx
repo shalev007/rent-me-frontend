@@ -7,7 +7,6 @@ import MarkerItem from './components/MarkerItem/Component';
 import PopupItem from './components/PopupItem/Component';
 // constants
 import { RootState } from '../../state/RootState';
-import { defaultViewport } from './helpers/DefaultState';
 import { types } from '../../state/Reducers/Map';
 // helper
 import getCurrentUserLocation from './helpers/functions/GetCurrentUserLocation';
@@ -15,6 +14,20 @@ import getCurrentUserLocation from './helpers/functions/GetCurrentUserLocation';
 import transportations from '../../data/AvailableRentalTransportation.json';
 
 const { REACT_APP_MAPBOX_TOKEN: MAPBOX_TOKEN, REACT_APP_MAPBOX_STYLE: MAPBOX_STYLE } = process.env;
+const defaultViewport: ViewportProps = {
+    width: 0,
+    height: 900,
+    latitude: 0,
+    longitude: 0,
+    altitude: 0,
+    zoom: 17,
+    maxZoom: 24,
+    minZoom: 0,
+    pitch: 0,
+    maxPitch: 0,
+    minPitch: 0,
+    bearing: 0,
+};
 
 // Component
 const Map: React.FC = (): JSX.Element => {
@@ -65,17 +78,18 @@ const Map: React.FC = (): JSX.Element => {
                 </Marker>
 
                 {/* Available cars to rent */}
-                {transportations.map((transportation) => {
-                    return (
-                        <Marker
-                            key={transportation.id}
-                            latitude={transportation.coordinates.latitude}
-                            longitude={transportation.coordinates.longitude}
-                        >
-                            <MarkerItem transportation={transportation}></MarkerItem>
-                        </Marker>
-                    );
-                })}
+                {transportations &&
+                    transportations.map((transportation) => {
+                        return (
+                            <Marker
+                                key={transportation.id}
+                                latitude={transportation.coordinates.latitude}
+                                longitude={transportation.coordinates.longitude}
+                            >
+                                <MarkerItem transportation={transportation}></MarkerItem>
+                            </Marker>
+                        );
+                    })}
 
                 {/* Popup */}
                 {showPopup && (
@@ -83,6 +97,7 @@ const Map: React.FC = (): JSX.Element => {
                         latitude={selectedMarkerCoordinates.latitude}
                         longitude={selectedMarkerCoordinates.longitude}
                         onClose={onClosePopup}
+                        closeOnClick={false}
                     >
                         <PopupItem></PopupItem>
                     </Popup>
