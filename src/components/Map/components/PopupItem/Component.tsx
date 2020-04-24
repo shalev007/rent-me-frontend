@@ -25,7 +25,9 @@ const PopupItem: React.SFC = (): JSX.Element => {
                                 `}
                             </p>
                         </div>
-                        <div className="booking-page"></div>
+                        <div className="booking-page">
+                            <Link to="/booking">Book Car</Link>
+                        </div>
                     </div>
                 </div>
             )}
