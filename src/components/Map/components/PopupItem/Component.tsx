@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../state/RootState';
+import { Link } from 'react-router-dom';
 
 const PopupItem: React.SFC = (): JSX.Element => {
     const selectedMarker = useSelector((state: RootState) => state.map.selectedMarker);
@@ -24,6 +25,7 @@ const PopupItem: React.SFC = (): JSX.Element => {
                                 `}
                             </p>
                         </div>
+                        <div className="booking-page"></div>
                     </div>
                 </div>
             )}
