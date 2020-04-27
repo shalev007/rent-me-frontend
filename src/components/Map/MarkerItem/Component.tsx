@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { types } from '../../../../state/Reducers/Map';
-import Transportation from '../../../../interfaces/Map/Transportation';
+import { types } from 'src/state/Reducers/Map';
+import Transportation from 'src/interfaces/Map/Transportation';
 
 interface MarkerItemProps {
     isUser?: boolean;

@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // components
 import MapGL, { Marker, Popup, ViewportProps } from 'react-map-gl';
-import Coordinates from '../../interfaces/Map/Coordinates';
-import MarkerItem from './components/MarkerItem/Component';
-import PopupItem from './components/PopupItem/Component';
+import Coordinates from 'src/interfaces/Map/Coordinates';
+import MarkerItem from 'src/components/Map/MarkerItem/Component';
+import PopupItem from 'src/components/Map/PopupItem/Component';
 // constants
-import { RootState } from '../../state/RootState';
-import { types } from '../../state/Reducers/Map';
+import { RootState } from 'src/state/RootState';
+import { types } from 'src/state/Reducers/Map';
 // helper
-import getCurrentUserLocation from './helpers/functions/GetCurrentUserLocation';
+import getCurrentUserLocation from 'src/components/Map/helpers/functions/GetCurrentUserLocation';
 // TODO: delete line after retrive data from api call
-import transportations from '../../data/AvailableRentalTransportation.json';
+import transportations from 'src/data/AvailableRentalTransportation.json';
 
 const { REACT_APP_MAPBOX_TOKEN: MAPBOX_TOKEN, REACT_APP_MAPBOX_STYLE: MAPBOX_STYLE } = process.env;
 const defaultViewport: ViewportProps = {

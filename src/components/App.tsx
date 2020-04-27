@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Map from './Map/Component';
-import BookingForm from './BookingForm/Component';
-import '../style/App.css';
+import Map from 'src/components/Map/Component';
+import BookingForm from 'src/components/User/Forms/Booking/Component';
+import 'src/style/App.css';
 
 const App: React.FC = (): JSX.Element => {
     return (

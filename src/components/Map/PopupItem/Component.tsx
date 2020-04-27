@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../../state/RootState';
 import { Link } from 'react-router-dom';
+import { RootState } from 'src/state/RootState';
 
 const PopupItem: React.SFC = (): JSX.Element => {
     const selectedMarker = useSelector((state: RootState) => state.map.selectedMarker);
